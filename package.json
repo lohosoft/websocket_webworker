@@ -1,0 +1,16 @@
+{
+  "name": "websocket_webworker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "local-dev": "../../node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --inline --port 8080 --host 0.0.0.0 --content-base .",
+    "dev": "../../node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors",    
+    "dev-https": "../../node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --colors --https",
+    "prod": "npm run clean && NODE_EVN=production webpack -p",
+    "clean": "../../node_modules/rimraf/bin.js ./dist/*"
+  },
+  "author": "",
+  "license": "ISC"
+}
