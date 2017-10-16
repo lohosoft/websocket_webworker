@@ -1,18 +1,21 @@
+import MyWorker from "./worker.js";
+
 console.log("index.js");
 
-const MyWorker = require("worker-loader!./worker.js");
+window.onload = init();
 let worker;
-const hasWorker = true;
-if (!hasWorker) {
-	// worker polyfill
-	const PseudoWorker = require("pseudo-worker");
-	worker = new PseudoWorker("./worker.js");
-} else {
-	worker = new MyWorker();
+let workerRcvDiv = document.getElementById("workerRcv");
+function init() {
+	document.getElementById("checkWsBTN").addEventListener("click", checkWS);
+
+	MyWorker.postMessage({ type: "test", order: "hello" });
+	MyWorker.onmessage = function(e) {
+		let data = e.data;
+		console.log("worker back data :", data);
+		workerRcv.innerHTML = JSON.stringify(data) + new Date();
+	};
 }
 
-worker.onmessage = function(e) {
-	console.log("worker said : ", e.data);
-};
-
-worker.postMessage({ type: "dist", word: "teacher", number: 4 });
+function checkWS() {
+	MyWorker.postMessage({ type: "ws_send", data: "push" });
+}
